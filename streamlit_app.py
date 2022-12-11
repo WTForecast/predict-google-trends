@@ -8,6 +8,27 @@ import socket, math, datetime
 from prophet import Prophet
 from requests import get
 
+proxy = ['http://217.21.58.130:50100',
+'http://217.21.58.126:50100',
+'http://217.21.58.144:50100',
+'http://217.21.58.141:50100',
+'http://217.21.58.152:50100',
+'http://217.21.58.107:50100',
+'http://217.21.58.149:50100',
+'http://217.21.58.145:50100',
+'http://217.21.58.166:50100',
+'http://217.21.58.163:50100',
+'http://88.216.34.116:50100',
+'http://88.216.34.9:50100',
+'http://88.216.34.249:50100',
+'http://88.216.34.125:50100',
+'http://88.216.34.246:50100',
+'http://88.216.34.247:50100',
+'http://88.216.34.244:50100',
+'http://88.216.34.123:50100',
+'http://88.216.34.124:50100',
+'http://88.216.34.245:50100']
+
 def _max_width_():
     max_width_str = f"max-width: 1500px;"
     st.markdown(
@@ -60,7 +81,7 @@ def main():
     user_input = st.text_input('enter the keyword and press "Make request"')
     if st.button('Make request'):
         with st.spinner("Training ongoing"):
-            pytrend = TrendReq(hl='it-IT', tz=360)
+            pytrend = TrendReq(hl='it-IT', tz=360, proxies=proxy)
             pytrend.build_payload([f'{user_input}'], cat=0, timeframe='today 5-y', geo='IT', gprop='')
             data = pytrend.interest_over_time()
             data = data[data.isPartial != "True"]
